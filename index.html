@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>paei test</title>
+
+
+</head>
+<body>
+
+
+<style>
+    span, p, div {
+        font-family: 'Lato', sans-serif;
+    }
+
+    .paei {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 25px;
+    }
+
+    .paei__container {
+        display: flex;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .paei__box {
+    }
+
+    .paei__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto;
+        padding: 10px;
+        box-sizing: border-box;
+
+        border-radius: 5px 5px 0 0;
+
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .paei__steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .paei__step--current, .paei__step-delimiter, .paei__step--all, .paei-results-title {
+        font-size: 20px;
+        color: white;
+        font-weight: 700;
+    }
+
+    .paei__step--current {
+
+    }
+
+    .paei__step-delimiter {
+        padding: 0 4px;
+    }
+
+    .paei__step--all {
+
+    }
+
+    .paei__list, .paei__results {
+        min-width: 300px;
+        width: 100%;
+
+        box-sizing: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+
+        margin: 0;
+        padding: 0 !important;
+        list-style-type: none;
+    }
+
+    .paei__list-item, .paei__results-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: relative;
+
+        padding: 10px;
+    }
+
+    .paei__list-item:not(:last-child):after, .paei__results-item:not(:last-child):after {
+        content: "";
+        display: block;
+
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: calc(100% - 20px);
+        height: 1px;
+
+        background: rgba(100, 100, 100, 0.2);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+    }
+
+    .paei__list-item-title, .paei__results-item-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .paei__list-item-value, .paei__results-item-value {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .paei__bottom {
+        display: flex;
+        justify-content: space-between;
+
+        width: 100%;
+
+        padding: 5px 2px;
+        box-sizing: border-box;
+    }
+
+    .paei__bottom span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 100px;
+        height: 30px;
+
+        box-sizing: border-box;
+        margin: 1px;
+        padding: 5px 10px;
+
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+
+        border-radius: 5px;
+
+        background: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+
+        transition: 0.35s;
+    }
+
+    .paei__bottom span.paei__botton-next {
+        margin-left: auto;
+    }
+
+
+    .paei__bottom span:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    @media (min-width: 960px) {
+        .paei__list, .paei__results {
+            min-width: 550px;
+        }
+    }
+</style>
+
+<div class="paei">
+    <div class="paei__container">
+        <div class="paei__box">
+            <div class="paei__header">
+                <div class="j-paei-steps paei__steps">
+                    <div class="j-current-step paei__step--current">1</div>
+                    <div class="paei__step-delimiter">/</div>
+                    <div class="j-all-steps paei__step--all">2</div>
+                </div>
+
+                <div class="j-paei-results-title paei-results-title" style="display: none">
+                    Ваши результаты
+                </div>
+            </div>
+
+            <ul class="j-paei-list paei__list">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Вовлеченный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Сомневающийся</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Яркий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Отзывчивый</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Прямолинейный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Анализирующий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Харизматичный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Чувствующий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Делающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Созерцающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Провоцирующий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Сопереживающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Отдающий себе отчет</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Оценивающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Идущий на риск</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Благожелательный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Результативный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Логичный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Задающий вопросы</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Интуитивный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Упорный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Консервативный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Радикальный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Общительный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Активный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Наблюдающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Абстрактный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Взаимодействующий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Прагматичный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Размышляющий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Смотрящий в будущее</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Теплый</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Побеждающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Точный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Концептуальный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Стремящийся к консенсусу</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Рациональный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Сдержанный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Генерирующий идеи</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Осведомленный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Деловой</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Аккуратный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Яркий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Приятный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul class="j-paei-list paei__list" style="display: none">
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Реалистичный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Осторожный</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Мечтающий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+                <li class="paei__list-item">
+                    <span class="paei__list-item-title">Объединяющий</span>
+                    <select class="j-item-value paei__list-item-value">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </li>
+            </ul>
+
+
+            <!-- Results -->
+            <ul class="j-paei-results paei__results" style="display: none">
+                <li class="paei__results-item">
+                    <span class="paei__results-item-title">Специалист:</span>
+                    <span class="j-paei-result paei__results-item-value"></span>
+                </li>
+                <li class="paei__results-item">
+                    <span class="paei__results-item-title">Администратор:</span>
+                    <span class="j-paei-result paei__results-item-value"></span>
+                </li>
+                <li class="paei__results-item">
+                    <span class="paei__results-item-title">Предприниматель:</span>
+                    <span class="j-paei-result paei__results-item-value"></span>
+                </li>
+                <li class="paei__results-item">
+                    <span class="paei__results-item-title">Интегратор:</span>
+                    <span class="j-paei-result paei__results-item-value"></span>
+                </li>
+            </ul>
+
+            <div class="paei__bottom">
+                <span class="j-paei-previous" style="display: none">Назад</span>
+                <span class="j-paei-finish" style="display: none">Определить тип личности</span>
+                <span class="j-paei-next paei__botton-next">Дальше</span>
+                <span class="j-paei-refresh" style="display: none">Попробовать ещё раз</span>
+            </div>
+
+            <div class="paei__info">
+                <div class="j-paei-info"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        var current_step = parseInt($('.j-current-step').text());
+
+        // recount lists and set right number
+        $('.j-all-steps').text($('.j-paei-list').length)
+
+        // show only current (first) list and show needed buttons
+        $('.j-paei-list').hide();
+        $('.j-paei-list').eq(current_step - 1).show();
+        checkButtons();
+
+        $('.j-paei-previous').click(function () {
+            current_step--;
+            changeStep(current_step);
+        });
+
+        $('.j-paei-next').click(function () {
+            var inputs_value = [];
+            var list = $('.j-paei-list').eq(current_step - 1);
+
+            list.find('.j-item-value').each(function (index) {
+                inputs_value[index] = $(this).val();
+            });
+
+            if (checkInputs(inputs_value) == true) {
+                current_step++;
+                changeStep(current_step);
+            }
+        });
+
+        $('.j-paei-finish').click(function () {
+
+            var is_right = true;
+            var value_counter = [];
+
+            $('.j-paei-list').each(function () {
+                if(is_right == false) {
+                    return -2;
+                }
+
+                var inputs_value = [];
+
+                $(this).find('.j-item-value').each(function (index) {
+                    inputs_value[index] = $(this).val();
+
+                    if(value_counter[index]) {
+                        value_counter[index] += parseInt($(this).val());
+                    }
+                    else {
+                        value_counter[index] = parseInt($(this).val());
+                    }
+                });
+
+                if (checkInputs(inputs_value) == false) {
+                    is_right = false;
+                    return -1;
+                }
+
+            });
+
+            if(is_right == false) {
+                return -1;
+            }
+
+            $('.j-paei-steps').hide();
+            $('.j-paei-list').hide();
+            $('.j-paei-previous').hide();
+            $('.j-paei-finish').hide();
+
+            $('.j-paei-results-title').show();
+            $('.j-paei-results').show();
+            $('.j-paei-refresh').show();
+
+            value_counter.forEach(function (value, index) {
+                $('.j-paei-result').eq(index).text(value);
+            });
+
+            console.log(value_counter);
+        });
+
+        $('.j-paei-refresh').click(function () {
+            document.location.reload();
+        });
+
+        function changeStep(new_step) {
+            $('.j-paei-list').hide();
+            $('.j-paei-list').eq(new_step - 1).show();
+
+            $('.j-current-step').text(new_step);
+            checkButtons();
+        }
+
+        function checkButtons() {
+            var all_steps = $('.j-all-steps').text();
+
+            if (current_step == 1) {
+                $('.j-paei-previous').hide();
+                $('.j-paei-finish').hide();
+                $('.j-paei-next').show();
+            } else {
+                $('.j-paei-previous').show();
+            }
+
+            if (current_step == all_steps) {
+                $('.j-paei-next').hide();
+                $('.j-paei-finish').show();
+            } else {
+                $('.j-paei-next').show();
+                $('.j-paei-finish').hide();
+            }
+        }
+
+        function checkInputs(inputs_value) {
+            for (var i = 0; i < inputs_value.length; i++) {
+                for (var g = i + 1; g < inputs_value.length; g++) {
+                    if (inputs_value[i] == inputs_value[g]) {
+                        showWarning('Вам нужно определиться и поставить разные оценки для личных качеств');
+                        return false;
+                    } else if (inputs_value[i] > 4 || inputs_value[i] < 1) {
+                        showWarning('Оценка должна быть целым числом от 1 до 4');
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        function showWarning(text) {
+            alert(text);
+        }
+    });
+</script>
+
+</body>
+</html>
