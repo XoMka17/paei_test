@@ -14,7 +14,7 @@
 
 <style>
     span, p, div {
-        font-family: 'Lato', sans-serif;
+        font-family: 'Montserrat',Arial,sans-serif;
     }
 
     .paei {
@@ -22,7 +22,7 @@
         align-items: center;
         justify-content: center;
 
-        padding: 40px 25px;
+        padding: 30px 8px 60px;
     }
 
     .paei__container {
@@ -74,6 +74,7 @@
 
     .paei__list, .paei__results {
         min-width: 300px;
+        min-width: 550px;
         width: 100%;
 
         box-sizing: border-box;
@@ -136,11 +137,11 @@
         justify-content: center;
 
         min-width: 100px;
-        height: 30px;
+        min-height: 30px;
 
         box-sizing: border-box;
         margin: 1px;
-        padding: 5px 10px;
+        padding: 5px 6px;
 
         color: white;
         font-size: 16px;
@@ -157,15 +158,28 @@
     .paei__bottom span.paei__botton-next {
         margin-left: auto;
     }
+    .paei__bottom span.paei__botton-next, .paei__bottom span.paei__botton-finish {
+        background: #ff0303BF;
+    }
 
 
     .paei__bottom span:hover {
         background: rgba(0, 0, 0, 0.8);
     }
 
-    @media (min-width: 960px) {
+    @media (max-width: 960px) {
         .paei__list, .paei__results {
-            min-width: 550px;
+            min-width: 350px;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .paei__list, .paei__results {
+            min-width: 300px;
+        }
+
+        .paei__bottom span {
+            font-size: 14px;
         }
     }
 </style>
@@ -676,7 +690,7 @@
 
             <div class="paei__bottom">
                 <span class="j-paei-previous" style="display: none">Назад</span>
-                <span class="j-paei-finish" style="display: none">Определить тип личности</span>
+                <span class="j-paei-finish paei__botton-finish" style="display: none">Определить тип личности</span>
                 <span class="j-paei-next paei__botton-next">Дальше</span>
                 <span class="j-paei-refresh" style="display: none">Попробовать ещё раз</span>
             </div>
@@ -686,7 +700,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
